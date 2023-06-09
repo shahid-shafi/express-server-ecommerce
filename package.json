@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "build": "tsc -p .",
-    "vercel-build": "echo hello"
+    "build": "netlify deploy --prod"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +25,9 @@
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "netlify-cli": "^15.4.1",
+    "netlify-lambda": "^2.0.16",
+    "serverless-http": "^3.2.0",
     "sharp": "^0.32.1",
     "stripe": "^12.0.0",
     "validator": "^13.9.0"
