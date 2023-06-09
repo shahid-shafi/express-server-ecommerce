@@ -1,0 +1,237 @@
+{
+    "result": "success",
+    "items": 33,
+    "data": [
+        {
+            "_id": "644d0cc2abe437b1064f15d5",
+            "title": "smartphones",
+            "createdAt": "2023-04-29T12:25:38.910Z",
+            "updatedAt": "2023-04-29T12:25:38.910Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0cd1abe437b1064f15d8",
+            "title": "laptops",
+            "createdAt": "2023-04-29T12:25:53.312Z",
+            "updatedAt": "2023-04-29T12:25:53.312Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0d00abe437b1064f15dc",
+            "title": "fragrances",
+            "createdAt": "2023-04-29T12:26:40.407Z",
+            "updatedAt": "2023-04-29T12:26:40.407Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0d4e738d5065a2c25a01",
+            "title": "skincare",
+            "createdAt": "2023-04-29T12:27:58.635Z",
+            "updatedAt": "2023-04-29T12:27:58.635Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0d6d738d5065a2c25a04",
+            "title": "groceries",
+            "createdAt": "2023-04-29T12:28:29.254Z",
+            "updatedAt": "2023-04-29T12:28:29.254Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0da8c7be1b70e94e56bf",
+            "title": "decoration",
+            "createdAt": "2023-04-29T12:29:28.794Z",
+            "updatedAt": "2023-04-29T12:29:28.795Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0dc0c7be1b70e94e56c2",
+            "title": "furniture",
+            "createdAt": "2023-04-29T12:29:52.949Z",
+            "updatedAt": "2023-04-29T12:29:52.949Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0dd4c7be1b70e94e56c5",
+            "title": "tops",
+            "createdAt": "2023-04-29T12:30:12.337Z",
+            "updatedAt": "2023-04-29T12:30:12.337Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e18c7be1b70e94e56c8",
+            "title": "mobiles",
+            "createdAt": "2023-04-29T12:31:20.663Z",
+            "updatedAt": "2023-04-29T12:31:20.663Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e1fc7be1b70e94e56cb",
+            "title": "computers",
+            "createdAt": "2023-04-29T12:31:27.092Z",
+            "updatedAt": "2023-04-29T12:31:27.092Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e25c7be1b70e94e56ce",
+            "title": "clothes",
+            "createdAt": "2023-04-29T12:31:33.584Z",
+            "updatedAt": "2023-04-29T12:31:33.584Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e45c7be1b70e94e56d1",
+            "title": "womens-dresses",
+            "createdAt": "2023-04-29T12:32:05.436Z",
+            "updatedAt": "2023-04-29T12:32:05.436Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e61c7be1b70e94e56d4",
+            "title": "womens-shoes",
+            "createdAt": "2023-04-29T12:32:33.656Z",
+            "updatedAt": "2023-04-29T12:32:33.656Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e66c7be1b70e94e56d7",
+            "title": "shoes",
+            "createdAt": "2023-04-29T12:32:38.419Z",
+            "updatedAt": "2023-04-29T12:32:38.419Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e6ec7be1b70e94e56da",
+            "title": "footwear",
+            "createdAt": "2023-04-29T12:32:46.863Z",
+            "updatedAt": "2023-04-29T12:32:46.863Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e8ec7be1b70e94e56dd",
+            "title": "shirts",
+            "createdAt": "2023-04-29T12:33:18.883Z",
+            "updatedAt": "2023-04-29T12:33:18.883Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0e97c7be1b70e94e56e0",
+            "title": "mens-shirts",
+            "createdAt": "2023-04-29T12:33:27.038Z",
+            "updatedAt": "2023-04-29T12:33:27.038Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0ec701a73fd0848085dc",
+            "title": "mens-shoes",
+            "createdAt": "2023-04-29T12:34:15.439Z",
+            "updatedAt": "2023-04-29T12:34:15.439Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0f4501a73fd0848085df",
+            "title": "mens-watches",
+            "createdAt": "2023-04-29T12:36:21.338Z",
+            "updatedAt": "2023-04-29T12:36:21.338Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0f4b01a73fd0848085e2",
+            "title": "watches",
+            "createdAt": "2023-04-29T12:36:27.395Z",
+            "updatedAt": "2023-04-29T12:36:27.395Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0f6b01a73fd0848085e5",
+            "title": "womens-watches",
+            "createdAt": "2023-04-29T12:36:59.101Z",
+            "updatedAt": "2023-04-29T12:36:59.101Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0f9201a73fd0848085e8",
+            "title": "womens-bags",
+            "createdAt": "2023-04-29T12:37:38.640Z",
+            "updatedAt": "2023-04-29T12:37:38.640Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0f9d01a73fd0848085eb",
+            "title": "mens-bags",
+            "createdAt": "2023-04-29T12:37:49.133Z",
+            "updatedAt": "2023-04-29T12:37:49.133Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0fa101a73fd0848085ee",
+            "title": "bags",
+            "createdAt": "2023-04-29T12:37:53.535Z",
+            "updatedAt": "2023-04-29T12:37:53.535Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0fca01a73fd0848085f1",
+            "title": "jewellery",
+            "createdAt": "2023-04-29T12:38:34.970Z",
+            "updatedAt": "2023-04-29T12:38:34.970Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0feb01a73fd0848085f4",
+            "title": "sunglasses",
+            "createdAt": "2023-04-29T12:39:07.944Z",
+            "updatedAt": "2023-04-29T12:39:07.944Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d0fff01a73fd0848085f7",
+            "title": "automotive",
+            "createdAt": "2023-04-29T12:39:27.362Z",
+            "updatedAt": "2023-04-29T12:39:27.362Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d102301a73fd0848085fa",
+            "title": "motorcycle",
+            "createdAt": "2023-04-29T12:40:03.615Z",
+            "updatedAt": "2023-04-29T12:40:03.615Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d104801a73fd0848085fd",
+            "title": "lighting",
+            "createdAt": "2023-04-29T12:40:40.875Z",
+            "updatedAt": "2023-04-29T12:40:40.875Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d104c01a73fd084808600",
+            "title": "lights",
+            "createdAt": "2023-04-29T12:40:44.972Z",
+            "updatedAt": "2023-04-29T12:40:44.972Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d1394dee154fe93b858d6",
+            "title": "dresses",
+            "createdAt": "2023-04-29T12:54:44.466Z",
+            "updatedAt": "2023-04-29T12:54:44.466Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d14691667ac9f3b08dad8",
+            "title": "creams",
+            "createdAt": "2023-04-29T12:58:17.930Z",
+            "updatedAt": "2023-04-29T12:58:17.930Z",
+            "__v": 0
+        },
+        {
+            "_id": "644d14decb5ce2e0e8c249f2",
+            "title": "purfumes",
+            "createdAt": "2023-04-29T13:00:14.994Z",
+            "updatedAt": "2023-04-29T13:00:14.994Z",
+            "__v": 0
+        }
+    ]
+}
