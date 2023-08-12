@@ -1,27 +1,28 @@
-import mongoose from "mongoose";
-export interface IUser {
+import mongoose, { Document } from "mongoose";
+export interface IUser extends Document {
+    _id?: string;
     name: string;
     phoneNumber: string;
     email: string;
-    gender: string;
-    age: number;
+    gender?: string;
+    age?: number;
     phone?: string;
-    profilePicture: string;
-    username: string;
-    address: Address[];
-    role: mongoose.Types.ObjectId;
-    cart: mongoose.Types.ObjectId,
+    profilePicture?: string;
+    username?: string;
+    address?: Address[];
+    role?: mongoose.Types.ObjectId;
+    cart?: mongoose.Types.ObjectId,
     password: string;
     passwordConfirm?: string;
-    passwordChangedAt: Date,
-    passwordResetToken: string,
-    passwordResetExpires: Date,
-    active: boolean;
+    passwordChangedAt?: Date,
+    passwordResetToken?: string,
+    passwordResetExpires?: Date,
+    active?: boolean;
     correctPassword?: any;
     __v?: number;
 }
 
-export interface Address {
+export interface Address extends Document {
     address: string
     city: string
     coordinates: {
@@ -32,7 +33,7 @@ export interface Address {
     state: string,
 }
 
-export interface IRole {
+export interface IRole extends Document {
     title: string;
     __v?: number;
 }
@@ -42,7 +43,15 @@ export interface ICart extends Document {
     items: IProduct[];
     totalAmount: number;
 }
-export interface IProduct {
+
+
+export interface IActivateAccount {
+    id: string;
+    token: string;
+    expire: Date;
+}
+
+export interface IProduct extends Document {
     name: string;
     description: string;
     price: number;
@@ -60,7 +69,7 @@ export interface IProduct {
     __v?: number;
 }
 
-export interface ICategory {
+export interface ICategory extends Document {
     title: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -68,10 +77,17 @@ export interface ICategory {
 }
 
 
-export interface IReview {
+export interface IReview extends Document {
     user: mongoose.Types.ObjectId;
     product: mongoose.Types.ObjectId;
     rating: number;
     comment: string;
     __v?: number;
+}
+
+export interface IOtp {
+    id: string;
+    otp: number;
+    expire: Date;
+    isVerified?: boolean;
 }

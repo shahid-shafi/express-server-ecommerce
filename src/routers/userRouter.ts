@@ -1,19 +1,60 @@
 import express from 'express';
 const router = express.Router();
-import { createUser, deleteUserById, getAllUsers, getUserById, updateAllUsers, updateUserById } from '../controllers/userControllers';
-import validationMiddleware from '../middleware/validation/validationHandler';
-import { createUserValidation } from '../constants/validation/userValidation';
-import { parseProfilePicture, resizeProfilePicture } from '../middleware/multer/profileImage';
+import {
+  activateUserAccount,
+  getAllUsers,
+  getUserById,
+  sendActivateAccountLink,
+  updateUserById,
+  userLogIn,
+  userResetPassword,
+  userResetPasswordOTP,
+  userSignUp,
+  verifyResetPasswordOTP,
+} from '../controllers/userControllers';
+import {
+  parseProfilePicture,
+  resizeProfilePicture,
+} from '../middleware/multer/profileImage';
+import validateRequestBody from '../middleware/validation/validateReqBody';
+import { userSignUpValidation } from '../validation/userValidation';
+import { userLogInSchema, userResetPasswordOTPSchema, userResetPasswordSchema, userVerifyOTPSchema } from '../controllers/validation/userValidation';
 
-// router.route('/update-all-users').post(updateAllUsers)
+router.post(
+  '/signUp',
+  validateRequestBody(userSignUpValidation),
+  userSignUp
+);
 
-router.route('/users')
-  .post(createUser)
-  .get(getAllUsers)
+router.get('/activateUserAccount', activateUserAccount)
 
-router.route('/users/:id')
+router.get('/accountActivationLink', sendActivateAccountLink)
+
+router.post('/logIn', validateRequestBody(userLogInSchema), userLogIn);
+
+router.route('/users').get(getAllUsers);
+
+router
+  .route('/users/:id')
   .get(getUserById)
   .patch(parseProfilePicture, resizeProfilePicture, updateUserById)
-  .delete(deleteUserById)
+
+router.post(
+  '/sendUserResetPasswordOTP',
+  validateRequestBody(userResetPasswordOTPSchema),
+  userResetPasswordOTP
+);
+
+router.post(
+  '/verifyUserResetPasswordOTP',
+  validateRequestBody(userVerifyOTPSchema),
+  verifyResetPasswordOTP
+);
+
+router.post(
+  '/resetUserPassword/:id',
+  validateRequestBody(userResetPasswordSchema),
+  userResetPassword
+);
 
 export default router;

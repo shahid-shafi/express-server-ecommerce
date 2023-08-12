@@ -20,7 +20,10 @@ const categorySchema: Schema = new mongoose.Schema({
         type: Number,
         select: false
     }
-});
+},
+    {
+        timestamps: true,
+    });
 
 categorySchema.pre('save', async function (this: ICategory, next) {
     const category = await Category.findOne({ title: this.title });

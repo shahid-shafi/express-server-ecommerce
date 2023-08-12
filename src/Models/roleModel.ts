@@ -13,7 +13,11 @@ const userRoleSchema: Schema = new mongoose.Schema({
         type: Number,
         select: false
     }
-});
+},
+    {
+        timestamps: true,
+    },
+);
 
 userRoleSchema.pre('save', async function (this: IRole, next) {
     const role = await Role.findOne({ title: this.title });

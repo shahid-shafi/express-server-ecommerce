@@ -3,7 +3,7 @@ import {
     createProduct, getAllProducts, getProductById, deleteProductById, updateProductById
 } from '../controllers/productControllers';
 import reviewRouter from './reviewRouter';
-import validationMiddleware from '../middleware/validation/validationHandler';
+import validateRequestBody from '../middleware/validation/validateReqBody';
 import { createProductValidation } from '../constants/validation/productValidation';
 
 const router = express.Router();
@@ -11,10 +11,10 @@ const router = express.Router();
 router.use('/products/:productId/reviews', reviewRouter);
 
 router.route('/products')
-    .post(validationMiddleware(createProductValidation), createProduct)
+    .post(validateRequestBody(createProductValidation), createProduct)
     .get(getAllProducts)
 
-router.route('products/:id')
+router.route('/products/:id')
     .get(getProductById)
     .delete(deleteProductById)
     .patch(updateProductById)

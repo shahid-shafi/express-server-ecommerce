@@ -1,11 +1,10 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import multer from 'multer';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
-import AppError from './utils/appError';
+import dotenv from 'dotenv'; 
 import combinedRouter from './routers';
+import catchAsync from './utils/catchAsync';
 dotenv.config();
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -27,8 +26,12 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-app.all('*', (req: Request, res: Response, next: NextFunction) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this Server 🌐`, 404));
-})
+app.all('*', catchAsync(async (req: Request, res: Response) => {
+    res.status(404).json({
+        result: false,
+        message: `Can't find ${req.originalUrl} on this Server 🌐`,
+        data: null
+    })
+}))
 
 export default app;

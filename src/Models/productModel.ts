@@ -68,7 +68,10 @@ const productSchema: Schema = new mongoose.Schema({
         type: Number,
         select: false,
     },
-});
+},
+    {
+        timestamps: true,
+    });
 
 export const Product: Model<IProduct> = mongoose.model<IProduct>(
     'Product',

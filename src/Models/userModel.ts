@@ -5,7 +5,7 @@ import Role from './roleModel';
 import bcrypt from 'bcryptjs';
 import { IUser } from '../interfaces/schemaInterfaces';
 
-const userSchema: Schema = new mongoose.Schema({
+const userSchema: Schema = new Schema({
     name: {
         type: String,
         maxLength: 40,
@@ -35,7 +35,7 @@ const userSchema: Schema = new mongoose.Schema({
         default: 'default.png',
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Role',
     },
     cart: {
@@ -47,17 +47,6 @@ const userSchema: Schema = new mongoose.Schema({
         required: [true, 'Please provide a password'],
         minlength: 8,
         select: false
-    },
-    passwordConfirm: {
-        type: String,
-        required: [true, 'Please confirm your password.'],
-        validate: {
-            validator: function (this: { password: string }, passwordConfirm: string): boolean {
-                return passwordConfirm === this.password;
-            },
-            message: 'Passwords do not match.',
-        },
-        select: false,
     },
     address: [
         {
@@ -76,14 +65,18 @@ const userSchema: Schema = new mongoose.Schema({
     passwordResetExpires: Date,
     active: {
         type: Boolean,
-        default: true,
+        default: false,
         select: false
     },
     __v: {
         type: Number,
         select: false,
     },
-});
+},
+    {
+        timestamps: true,
+    }
+);
 
 userSchema.pre('save', async function (next) {
     if (this.role) {

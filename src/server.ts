@@ -1,4 +1,4 @@
-import mongoose, { ConnectOptions } from 'mongoose';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app';
 import connectDatabase from './utils/connection/database';
