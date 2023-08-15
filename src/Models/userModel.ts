@@ -83,10 +83,10 @@ userSchema.pre('save', async function (next) {
         return next();
     }
 
-    let defaultRole = await Role.findOne({ name: 'user' });
+    let defaultRole = await Role.findOne({ title: 'user' });
 
     if (!defaultRole) {
-        defaultRole = await Role.create({ name: 'user' });
+        defaultRole = await Role.create({ title: 'user' });
     }
     this.role = defaultRole._id
     next();
