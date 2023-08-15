@@ -17,6 +17,7 @@ export const userSignUpValidation = Joi.object({
             'string.pattern.base': 'Please provide a valid email address',
         }),
     phone: Joi.string().optional(),
+    role: Joi.string().optional(),
     password: Joi.string().min(8).required().messages({
         'any.required': 'Please provide a password',
         'string.min': 'Password must be at least 8 characters long',
