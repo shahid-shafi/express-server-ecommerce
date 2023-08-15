@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -110,58 +101,48 @@ const userSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-userSchema.pre('save', function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (this.role) {
-            return next();
-        }
-        let defaultRole = yield roleModel_1.default.findOne({ name: 'user' });
-        if (!defaultRole) {
-            defaultRole = yield roleModel_1.default.create({ name: 'user' });
-        }
-        this.role = defaultRole._id;
-        next();
-    });
+userSchema.pre('save', async function (next) {
+    if (this.role) {
+        return next();
+    }
+    let defaultRole = await roleModel_1.default.findOne({ name: 'user' });
+    if (!defaultRole) {
+        defaultRole = await roleModel_1.default.create({ name: 'user' });
+    }
+    this.role = defaultRole._id;
+    next();
 });
-userSchema.pre('save', function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const existingUser = yield User.findOne().or([{ username: this.username }, { email: this.email }]);
-        if (existingUser) {
-            if (existingUser.username === this.username) {
-                return next(new appError_1.default(`Username "${this.username}" already taken`, 409));
-            }
-            else {
-                return next(new appError_1.default(`Account with email "${this.email}" already exists`, 409));
-            }
+userSchema.pre('save', async function (next) {
+    const existingUser = await User.findOne().or([{ username: this.username }, { email: this.email }]);
+    if (existingUser) {
+        if (existingUser.username === this.username) {
+            return next(new appError_1.default(`Username "${this.username}" already taken`, 409));
         }
         else {
-            next();
+            return next(new appError_1.default(`Account with email "${this.email}" already exists`, 409));
         }
-    });
-});
-userSchema.pre('save', function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!this.isModified('password'))
-            return next();
-        //: Encryption: Hash the password field with cost of 12  
-        this.password = yield bcryptjs_1.default.hash(this.password, 12);
-        this.passwordConfirm = undefined;
+    }
+    else {
         next();
-    });
+    }
 });
-userSchema.pre('save', function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!this.isModified('password') || this.isNew)
-            return next();
-        this.passwordChangedAt = Date.now() - 1000;
-        next();
-    });
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password'))
+        return next();
+    //: Encryption: Hash the password field with cost of 12  
+    this.password = await bcryptjs_1.default.hash(this.password, 12);
+    this.passwordConfirm = undefined;
+    next();
+});
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password') || this.isNew)
+        return next();
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
 });
 userSchema.methods.correctPassword =
-    function (candidatePassword, userPassword) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield bcryptjs_1.default.compare(candidatePassword, userPassword);
-        });
+    async function (candidatePassword, userPassword) {
+        return await bcryptjs_1.default.compare(candidatePassword, userPassword);
     };
 const User = mongoose_1.default.model('User', userSchema);
 exports.default = User;

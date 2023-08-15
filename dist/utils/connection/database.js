@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const DB = process.env.DATABASE_URL || '';
-const dbUrl = 'mongodb://127.0.0.1:27017/ecommerce';
+const dbUrl = process.env.DATABASE_PROD;
 const connectDatabase = () => {
     mongoose_1.default
         .connect(dbUrl, {

@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -48,8 +39,8 @@ const createSendToken = (res, user, message, statusCode) => {
         },
     });
 };
-exports.userSignUp = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const newUser = yield userModel_1.default.create({
+exports.userSignUp = (0, catchAsync_1.default)(async (req, res) => {
+    const newUser = await userModel_1.default.create({
         name: req.body.name,
         username: req.body.username,
         email: req.body.email,
@@ -57,17 +48,17 @@ exports.userSignUp = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         confirmPassword: req.body.confirmPassword,
     });
     createSendToken(res, newUser, 'message', 201);
-}));
-exports.loginUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+});
+exports.loginUser = (0, catchAsync_1.default)(async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return next(new appError_1.default('Please provide email and password!', 400));
     }
-    const user = yield userModel_1.default.findOne({ email }).select('+password');
-    if (!user || !(yield user.correctPassword(password, user.password))) {
+    const user = await userModel_1.default.findOne({ email }).select('+password');
+    if (!user || !(await user.correctPassword(password, user.password))) {
         return next(new appError_1.default('Incorrect email or password', 401));
     }
     //3. If everything is ok, send token to client
     const message = 'You have loggedIn Successfully';
     createSendToken(res, user, message, 200);
-}));
+});

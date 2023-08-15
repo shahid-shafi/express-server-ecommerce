@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "node src/server.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc -p ."
   },
   "keywords": [],
@@ -47,7 +48,7 @@
     "@types/nodemailer": "^6.4.9",
     "colors": "^1.4.0",
     "eslint": "^8.40.0",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.1",
     "npm": "^9.6.4",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"

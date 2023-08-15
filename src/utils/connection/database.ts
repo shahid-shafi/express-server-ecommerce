@@ -2,8 +2,7 @@ import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const DB: string = process.env.DATABASE_URL || '';
-const dbUrl = 'mongodb://127.0.0.1:27017/ecommerce';
+const dbUrl = process.env.DATABASE_PROD;
 
 const connectDatabase = () => {
     mongoose
