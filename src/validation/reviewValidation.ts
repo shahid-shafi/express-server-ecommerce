@@ -1,5 +1,5 @@
 import Joi, { ObjectSchema } from 'joi';
-import { IReview } from '../../interfaces/schemaInterfaces';
+import { IReview } from '../interfaces/schemaInterfaces';
 
 export const createReviewValidation: ObjectSchema<IReview> = Joi.object<IReview>({
     user: Joi.string()

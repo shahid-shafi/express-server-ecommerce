@@ -1,12 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import User from '../Models/userModel';
+import { CookieOptions, NextFunction, Request, Response } from 'express';
+import User from '../Models/user.model';
 import catchAsync from '../utils/catchAsync';
-import {
-    deleteOne,
-    getAll,
-    getOne,
-    updateAll,
-} from './handler/handlerFactory';
 import AppError from '../utils/appError';
 import {
     resetPasswordService,
@@ -16,31 +10,27 @@ import {
     activateUserAccountService,
     sendActivateAccountLinkService,
     userLogInService,
+    getAllUsersService,
+    getUserByIdService,
+    deleteUserByIdService,
 } from './services/user.service';
 import { sendResponse } from '../utils/common/commonMethods';
-
 interface AuthRequest extends Request {
     user?: any;
 }
 
-export const getAllUsers = getAll(User, 'role');
-export const getUserById = getOne(User, 'role');
+const { NODE_ENV, JWT_COOKIE_EXPIRES_IN } = process.env;
 
-export const userSignUp = async (req: Request, res: Response) => {
-    try {
-        await userSignUpService(req.body);
+export const userSignUp = catchAsync(async (req: Request, res: Response) => {
+    await userSignUpService(req.body);
+    sendResponse(res, 200, {
+        status: true,
+        message: 'User created successfully!',
+    });
+});
 
-        sendResponse(res, 200, {
-            status: true,
-            message: 'User created successfully!',
-        });
-    } catch (error: any) {
-        sendResponse(res, 500, { status: false, message: error?.message });
-    }
-};
-
-export const activateUserAccount = async (req: Request, res: Response) => {
-    try {
+export const activateUserAccount = catchAsync(
+    async (req: Request, res: Response) => {
         const token = req.query.token as string;
 
         if (!token) {
@@ -54,45 +44,50 @@ export const activateUserAccount = async (req: Request, res: Response) => {
                 message: 'Account activated successfully!',
             });
         }
-    } catch (error: any) {
-        console.log('Activate User Account Error: ', error);
-        sendResponse(res, 500, { status: false, message: error.message });
     }
-};
+);
 
-export const sendActivateAccountLink = async (req: Request, res: Response) => {
-    try {
+export const sendActivateAccountLink = catchAsync(
+    async (req: Request, res: Response) => {
         const { email } = req.body;
         await sendActivateAccountLinkService(email);
         sendResponse(res, 200, {
             status: true,
             message: 'Link sent successfully!',
         });
-    } catch (error: any) {
-        console.log('Send activate link controller: ', error);
-        sendResponse(res, 500, { status: false, message: error.message });
     }
-};
+);
 
-export const userLogIn = async (req: Request, res: Response) => {
-    try {
-        const { email, password } = req.body;
+export const userLogIn = catchAsync(async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-        if (!email || !password) {
-            throw new Error('Please provide email and password');
-        }
-        
-        const result = await userLogInService(email, password);
-        sendResponse(res, 200, {
-            status: true,
-            message: 'User logged in successfully',
-            data: result,
-        });
-    } catch (error: any) {
-        console.log('User login Error: ', error);
-        sendResponse(res, 500, { status: false, message: error.message });
+    if (!email || !password) {
+        throw new Error('Please provide email and password');
     }
-};
+
+    const token = await userLogInService(email, password);
+
+    let cookieOptions: CookieOptions;
+    if (JWT_COOKIE_EXPIRES_IN) {
+        cookieOptions = {
+            expires: new Date(
+                Date.now() + Number(JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
+            ),
+            httpOnly: true,
+        };
+    }
+
+    if (NODE_ENV === 'production') {
+        cookieOptions.secure = true;
+    }
+
+    res.cookie('jwt', token, cookieOptions);
+    sendResponse(res, 200, {
+        status: true,
+        message: 'User logged in successfully',
+        data: token,
+    });
+});
 
 const filterRequestBody = (obj: any, ...allowedFields: any) => {
     const newObj: any = {};
@@ -128,7 +123,7 @@ export const updateUserById = catchAsync(
         res.status(200).json({
             status: 'success',
             data: {
-                // user: updatedUser
+                user: updatedUser,
             },
         });
     }
@@ -151,8 +146,8 @@ export const checkUserName = catchAsync(async (req: Request, res: Response) => {
     }
 });
 
-export const userResetPasswordOTP = async (req: Request, res: Response) => {
-    try {
+export const userResetPasswordOTP = catchAsync(
+    async (req: Request, res: Response) => {
         const { email } = req.body;
         if (!email) {
             res.status(400).json({ error: 'Email is required.' });
@@ -164,13 +159,11 @@ export const userResetPasswordOTP = async (req: Request, res: Response) => {
                 message: 'OTP sent successfully',
             });
         }
-    } catch (error: any) {
-        sendResponse(res, 500, { status: false, message: error?.message });
     }
-};
+);
 
-export const verifyResetPasswordOTP = async (req: Request, res: Response) => {
-    try {
+export const verifyResetPasswordOTP = catchAsync(
+    async (req: Request, res: Response) => {
         const { otp } = req.body;
         const id = req.params.id;
 
@@ -184,13 +177,11 @@ export const verifyResetPasswordOTP = async (req: Request, res: Response) => {
             data: userId,
             message: 'OTP verified successfully',
         });
-    } catch (error: any) {
-        sendResponse(res, 500, { status: false, message: error?.message });
     }
-};
+);
 
-export const userResetPassword = async (req: Request, res: Response) => {
-    try {
+export const userResetPassword = catchAsync(
+    async (req: Request, res: Response) => {
         const id = req.params.id;
         const { password, confirmPassword } = req.body;
 
@@ -206,7 +197,38 @@ export const userResetPassword = async (req: Request, res: Response) => {
             data: { userId },
             message: 'Password reset successfully!',
         });
-    } catch (error: any) {
-        sendResponse(res, 500, { status: false, message: error?.message });
     }
-};
+);
+
+export const getUserById = catchAsync(async (req: Request, res: Response) => {
+    const user = await getUserByIdService(req.params.id);
+    if (!user) {
+        throw new Error('User does not exist');
+    }
+    sendResponse(res, 200, {
+        status: true,
+        data: user,
+        message: 'User fetched successfully!',
+    });
+});
+
+export const deleteUserById = catchAsync(
+    async (req: Request, res: Response) => {
+        await deleteUserByIdService(req.params.id);
+
+        sendResponse(res, 200, {
+            status: true,
+            data: null,
+            message: 'User deleted successfully',
+        });
+    }
+);
+
+export const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+    const data = getAllUsersService(req.query);
+    sendResponse(res, 200, {
+        status: true,
+        data,
+        message: 'Users fetched successfully!',
+    });
+});

@@ -31,6 +31,7 @@ export interface Address extends Document {
     },
     postalCode: string,
     state: string,
+    country: string,
 }
 
 export interface IRole extends Document {
@@ -69,7 +70,7 @@ export interface IProduct extends Document {
     __v?: number;
 }
 
-export interface ICategory extends Document {
+export interface ICategory {
     title: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -77,7 +78,7 @@ export interface ICategory extends Document {
 }
 
 
-export interface IReview extends Document {
+export interface IReview {
     user: mongoose.Types.ObjectId;
     product: mongoose.Types.ObjectId;
     rating: number;

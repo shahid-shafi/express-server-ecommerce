@@ -1,5 +1,5 @@
-import { IOtp } from './../../interfaces/schemaInterfaces';
-import { OTP } from '../../Models/otpModel';
+import { IOtp } from '../../interfaces/schemaInterfaces';
+import { OTP } from '../../Models/otp.model';
 
 export const createOTPRecordQuery = async (data: IOtp) => {
     return await OTP.create(data);

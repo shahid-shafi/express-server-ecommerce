@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import {
   activateUserAccount,
+  deleteUserById,
   getAllUsers,
   getUserById,
   sendActivateAccountLink,
@@ -16,19 +17,20 @@ import {
   parseProfilePicture,
   resizeProfilePicture,
 } from '../middleware/multer/profileImage';
-import validateRequestBody from '../middleware/validation/validateReqBody';
-import { userSignUpValidation } from '../validation/userValidation';
-import { userLogInSchema, userResetPasswordOTPSchema, userResetPasswordSchema, userVerifyOTPSchema } from '../controllers/validation/userValidation';
+import validateRequestBody from '../middleware/validateReqBody';
+import {
+  userLogInSchema,
+  userResetPasswordOTPSchema,
+  userResetPasswordSchema,
+  userSignUpSchema,
+  userVerifyOTPSchema,
+} from '../validation/user.JoiValidation';
 
-router.post(
-  '/signUp',
-  validateRequestBody(userSignUpValidation),
-  userSignUp
-);
+router.post('/signUp', validateRequestBody(userSignUpSchema), userSignUp);
 
-router.get('/activateUserAccount', activateUserAccount)
+router.get('/activateUserAccount', activateUserAccount);
 
-router.get('/accountActivationLink', sendActivateAccountLink)
+router.get('/accountActivationLink', sendActivateAccountLink);
 
 router.post('/logIn', validateRequestBody(userLogInSchema), userLogIn);
 
@@ -38,6 +40,7 @@ router
   .route('/users/:id')
   .get(getUserById)
   .patch(parseProfilePicture, resizeProfilePicture, updateUserById)
+  .delete(deleteUserById);
 
 router.post(
   '/sendUserResetPasswordOTP',

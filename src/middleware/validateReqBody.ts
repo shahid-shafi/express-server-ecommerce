@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import AppError from "../../utils/appError";
+import AppError from "../utils/appError";
 import Joi from 'joi';
-import catchAsync from "../../utils/catchAsync";
+import catchAsync from "../utils/catchAsync";
 import colors from 'colors';
 
 const validateRequestBody = (validationSchema: Joi.ObjectSchema) =>

@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { activateAccountQuery } from '../query/activateAccountQuery';
+import { activateAccountQuery } from '../query/activateAccount.query';
 
 export const generateActivateAccountToken = (length = 32) => {
     return crypto.randomBytes(length).toString('hex');

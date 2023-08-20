@@ -1,6 +1,6 @@
 import mongoose, { ConnectOptions, Model } from 'mongoose';
 import fs from 'fs';
-import User from '../Models/userModel';
+import User from '../Models/user.model';
 
 const url = 'mongodb://127.0.0.1:27017/ecommerce';
 

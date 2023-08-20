@@ -1,5 +1,5 @@
 import mongoose, { ConnectOptions } from 'mongoose';
-import User from '../Models/userModel';
+import User from '../Models/user.model';
 
 const url = 'mongodb://127.0.0.1:27017/ecommerce';
 const dbName = 'your-database-name';

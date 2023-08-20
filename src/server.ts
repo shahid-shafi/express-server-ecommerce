@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app';
-import connectDatabase from './utils/connection/database';
+import connectDatabase from './utils/dbConnection';
 
 // mongoose.set('strictQuery', false);
 
@@ -14,7 +14,7 @@ process.on('uncaughtException', (err: Error) => {
 
 dotenv.config({ path: '.env' });
 
-connectDatabase(); //:Connecting to mongodb database;
+connectDatabase();
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {

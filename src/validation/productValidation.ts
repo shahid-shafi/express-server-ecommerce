@@ -1,5 +1,5 @@
 import Joi, { ObjectSchema } from 'joi';
-import { IProduct } from '../../interfaces/schemaInterfaces';
+import { IProduct } from '../interfaces/schemaInterfaces';
 
 export const createProductValidation: ObjectSchema<IProduct> = Joi.object<IProduct>({
     name: Joi.string().required().messages({

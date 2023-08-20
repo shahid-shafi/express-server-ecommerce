@@ -1,4 +1,4 @@
-import { createOTPRecordQuery, isOTPVerifiedQuery } from '../query/otpQuery';
+import { createOTPRecordQuery, isOTPVerifiedQuery } from '../query/otp.query';
 
 export const generateOTP = () => {
     return Math.floor(100000 + Math.random() * 900000);

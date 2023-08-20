@@ -1,7 +1,13 @@
-import Joi, { ObjectSchema } from 'joi';
-import { IUser } from '../../interfaces/schemaInterfaces';
+import Joi, { ObjectSchema } from "joi";
+import { IUser } from "../interfaces/schemaInterfaces";
 
-export const createUserValidation: ObjectSchema<IUser> = Joi.object<IUser>({
+export enum UserRoles {
+    ADMIN = 'admin',
+    USER = 'user',
+    SELLER = 'seller',
+}
+
+export const userSignUpSchema: ObjectSchema<IUser> = Joi.object<IUser>({
     name: Joi.string().min(3).max(40).required().messages({
         'any.required': 'User must have a name.',
         'string.min': `User name must be at least {#limit} characters long`,
@@ -55,7 +61,22 @@ export const createUserValidation: ObjectSchema<IUser> = Joi.object<IUser>({
     __v: Joi.number().optional(),
 });
 
-export const userLoginValidation: ObjectSchema<IUser> = Joi.object<IUser>({
+export const userResetPasswordOTPSchema = Joi.object({
+    email: Joi.string().email().required(),
+});
+
+export const userVerifyOTPSchema = Joi.object({
+    otp: Joi.number().required(),
+});
+
+export const userResetPasswordSchema = Joi.object({
+    password: Joi.string().required(),
+    confirmPassword: Joi.string().required().valid(Joi.ref('password')).messages({
+        'any.only': "Passwords don't match",
+    }),
+});
+
+export const userLogInSchema = Joi.object({
     email: Joi.string()
         .email()
         .pattern(new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'))

@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from 'mongoose';
 import validator from 'validator';
 import AppError from '../utils/appError';
-import Role from './roleModel';
+import Role from './role.model';
 import bcrypt from 'bcryptjs';
 import { IUser } from '../interfaces/schemaInterfaces';
 
@@ -58,6 +58,7 @@ const userSchema: Schema = new Schema({
             },
             postalCode: { type: String },
             state: { type: String },
+            country: { type: String },
         }
     ],
     passwordChangedAt: Date,
@@ -83,10 +84,10 @@ userSchema.pre('save', async function (next) {
         return next();
     }
 
-    let defaultRole = await Role.findOne({ title: 'user' });
+    let defaultRole = await Role.findOne({ name: 'user' });
 
     if (!defaultRole) {
-        defaultRole = await Role.create({ title: 'user' });
+        defaultRole = await Role.create({ name: 'user' });
     }
     this.role = defaultRole._id
     next();
@@ -108,8 +109,6 @@ userSchema.pre('save', async function (this: IUser, next) {
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-
-    //: Encryption: Hash the password field with cost of 12  
     this.password = await bcrypt.hash(this.password, 12);
     this.passwordConfirm = undefined;
     next();
@@ -121,7 +120,7 @@ userSchema.pre('save', async function (next) {
     next();
 })
 
-userSchema.methods.correctPassword =
+userSchema.methods.isPasswordCorrect =
     async function (candidatePassword: string, userPassword: string) {
         return await bcrypt.compare(candidatePassword, userPassword);
     }

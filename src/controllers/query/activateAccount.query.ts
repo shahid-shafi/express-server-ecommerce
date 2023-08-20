@@ -1,4 +1,4 @@
-import { ActivateAccount } from "../../Models/activateAccountModel"
+import { ActivateAccount } from "../../Models/activateAccount.model"
 import { IActivateAccount } from "../../interfaces/schemaInterfaces"
 
 export const activateAccountQuery = async (data: IActivateAccount) => {

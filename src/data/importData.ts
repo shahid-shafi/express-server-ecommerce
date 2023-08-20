@@ -1,7 +1,7 @@
 import fs from 'fs';
 import mongoose, { ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
-import { Product } from '../Models/productModel';
+import { Product } from '../Models/product.model';
 
 process.on('uncaughtException', (err) => {
     console.log('UNCAUGHT EXCEPTION 💥 Shutting Down Server 🌐...');

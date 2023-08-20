@@ -1,6 +1,7 @@
-import User from "../../Models/userModel";
+import User from "../../Models/user.model";
 import { IUser } from "../../interfaces/schemaInterfaces";
 import { ICreateUser } from "../../interfaces/user.Interface";
+import { getPaginationOptions } from "../../utils/common/commonMethods";
 
 export const userSignUpQuery = async (newUserData: ICreateUser) => {
     return await User.create(newUserData);
@@ -27,3 +28,26 @@ export const userResetPasswordQuery = async (id: string, hashedPassword: string)
         { new: true },
     );
 };
+
+export const getUserByIdQuery = async (id: string): Promise<IUser | null> => {
+    return await User.findById(id);
+};
+
+export const deleteUserByIdQuery = async (id: string): Promise<IUser | null> => {
+    return await User.findByIdAndUpdate(
+        { _id: id },
+        { $set: { active: false } },
+        { new: true },
+    )
+}
+
+export const getAllUsersQuery = async (skip: number, limit: number) => {
+    const [users, count] = await Promise.all([
+        User.find()
+            .skip(skip)
+            .limit(limit)
+            .populate(''),
+        User.countDocuments(),
+    ]);
+    return { users, count };
+}

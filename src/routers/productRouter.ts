@@ -3,8 +3,8 @@ import {
     createProduct, getAllProducts, getProductById, deleteProductById, updateProductById
 } from '../controllers/productControllers';
 import reviewRouter from './reviewRouter';
-import validateRequestBody from '../middleware/validation/validateReqBody';
-import { createProductValidation } from '../constants/validation/productValidation';
+import validateRequestBody from '../middleware/validateReqBody';
+import { createProductValidation } from '../validation/productValidation';
 
 const router = express.Router();
 

@@ -1,9 +1,12 @@
 import { ICreateUser } from "../../interfaces/user.Interface";
+import { getPaginationOptions } from "../../utils/common/commonMethods";
 import { generateHashPassword, matchPassword } from "../../utils/common/password";
 import { signToken } from "../../utils/common/token";
-import { deleteActivateTokenQuery, verifyActivateTokenQuery } from "../query/activateAccountQuery";
-import { deleteOTpRecordQuery, getVerifyOTPQuery } from "../query/otpQuery";
-import { activateUserAccountQuery, findUserByParams, findUserWithPassword, userResetPasswordQuery, userSignUpQuery } from "../query/userQuery";
+import { deleteActivateTokenQuery, verifyActivateTokenQuery } from "../query/activateAccount.query";
+import { deleteOTpRecordQuery, getVerifyOTPQuery } from "../query/otp.query";
+import {
+    activateUserAccountQuery, deleteUserByIdQuery, findUserByParams, findUserWithPassword, getAllUsersQuery, getUserByIdQuery, userResetPasswordQuery, userSignUpQuery
+} from "../query/user.query";
 import { generateActivateAccountToken, saveActivateAccountToken } from "./activateAccount.service";
 import { activateUserAccountEmailService, sendResetPasswordEmail } from "./email.service";
 import { generateOTP, isOTPVerifiedService, saveOTPService } from "./otp.service";
@@ -70,7 +73,7 @@ export const userLogInService = async (email: string, password: string) => {
         throw new Error('Invalid email or password')
     }
 
-    if (!user.active) {
+    if (!user?.active) {
         throw new Error('Please confirm your email address, before log in');
     }
 
@@ -124,4 +127,18 @@ export const resetPasswordService = async (id: string, password: string) => {
     const user = await userResetPasswordQuery(id, hashedPassword);
     await deleteOTpRecordQuery(user?._id);
     return user;
+};
+
+export const getUserByIdService = async (id: string) => {
+    return await getUserByIdQuery(id);
+}
+
+export const deleteUserByIdService = async (id: string) => {
+    return await deleteUserByIdQuery(id);
+}
+
+export const getAllUsersService = async (query: any) => {
+    const { page, size } = query;
+    const { skip, limit } = getPaginationOptions(page, size);
+    return await getAllUsersQuery(skip, limit)
 };
