@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const categoryControllers_1 = require("../controllers/categoryControllers");
-const validateReqBody_1 = __importDefault(require("../middleware/validation/validateReqBody"));
-const categoryValidation_1 = require("../constants/validation/categoryValidation");
+const validateReqBody_1 = __importDefault(require("../middleware/validateReqBody"));
+const categoryValidation_1 = require("../validation/categoryValidation");
 const router = express_1.default.Router();
 router.route('/category')
     .post((0, validateReqBody_1.default)(categoryValidation_1.createCategoryValidation), categoryControllers_1.createCategory)

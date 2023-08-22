@@ -13,17 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const user_model_1 = __importDefault(require("../Models/user.model"));
-const url = 'mongodb://127.0.0.1:27017/ecommerce';
-const dbName = 'your-database-name';
-mongoose_1.default.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Connected successfully to server');
-    // Update all users in the collection and add a new field `roleId`
-    const result = yield user_model_1.default.updateMany({}, { $set: { roleId: '6445179decb7694e160bd533' } });
-    console.log(`${result} users updated`);
-    mongoose_1.default.connection.close();
-}))
-    .catch((err) => {
-    console.error(err);
+const appError_1 = __importDefault(require("../utils/appError"));
+const userRoleSchema = new mongoose_1.default.Schema({
+    title: {
+        type: String,
+        required: [true, 'Role must have a title.'],
+        unique: true,
+        minLength: 2,
+    },
+    __v: {
+        type: Number,
+        select: false
+    }
+}, {
+    timestamps: true,
 });
+userRoleSchema.pre('save', function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const role = yield Role.findOne({ title: this.title });
+        if (role) {
+            return next(new appError_1.default(`Role "${this.title}" already exists`, 409));
+        }
+        else {
+            next();
+        }
+    });
+});
+const Role = mongoose_1.default.model('Role', userRoleSchema);
+exports.default = Role;

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isOTPVerifiedService = exports.saveOTPService = exports.generateOTP = void 0;
-const otpQuery_1 = require("../query/otpQuery");
+const otp_query_1 = require("../query/otp.query");
 const generateOTP = () => {
     return Math.floor(100000 + Math.random() * 900000);
 };
@@ -23,10 +23,10 @@ const saveOTPService = (id, otp) => __awaiter(void 0, void 0, void 0, function* 
         otp,
         expire,
     };
-    return yield (0, otpQuery_1.createOTPRecordQuery)(otpVerificationData);
+    return yield (0, otp_query_1.createOTPRecordQuery)(otpVerificationData);
 });
 exports.saveOTPService = saveOTPService;
 const isOTPVerifiedService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield (0, otpQuery_1.isOTPVerifiedQuery)(id);
+    return yield (0, otp_query_1.isOTPVerifiedQuery)(id);
 });
 exports.isOTPVerifiedService = isOTPVerifiedService;

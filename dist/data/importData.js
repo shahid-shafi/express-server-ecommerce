@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const productModel_1 = require("../Models/productModel");
+const product_model_1 = require("../Models/product.model");
 process.on('uncaughtException', (err) => {
     console.log('UNCAUGHT EXCEPTION 💥 Shutting Down Server 🌐...');
     console.log(err.name, err.message);
@@ -41,7 +41,7 @@ const users = JSON.parse(fs_1.default.readFileSync(`${__dirname}/products.json`,
 const importDataToCollection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // await clearCollection();
-        const result = yield productModel_1.Product.create(users);
+        const result = yield product_model_1.Product.create(users);
         console.log(result);
         console.log('Data loaded successfully');
     }
@@ -52,7 +52,7 @@ const importDataToCollection = () => __awaiter(void 0, void 0, void 0, function*
 //: Delete data from DataBase .
 const clearCollection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield productModel_1.Product.deleteMany();
+        yield product_model_1.Product.deleteMany();
         console.log('Data deleted successfully');
     }
     catch (error) {

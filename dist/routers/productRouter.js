@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const productControllers_1 = require("../controllers/productControllers");
 const reviewRouter_1 = __importDefault(require("./reviewRouter"));
-const validateReqBody_1 = __importDefault(require("../middleware/validation/validateReqBody"));
-const productValidation_1 = require("../constants/validation/productValidation");
+const validateReqBody_1 = __importDefault(require("../middleware/validateReqBody"));
+const productValidation_1 = require("../validation/productValidation");
 const router = express_1.default.Router();
 router.use('/products/:productId/reviews', reviewRouter_1.default);
 router.route('/products')

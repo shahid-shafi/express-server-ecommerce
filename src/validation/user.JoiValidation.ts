@@ -87,8 +87,8 @@ export const userLogInSchema = Joi.object({
             'string.empty': 'Please provide your email address',
             'string.pattern.base': 'Please provide a valid email address',
         }),
-    username: Joi.string(),
+    // username: Joi.string().optional(),
     password: Joi.string().required(),
 })
-    .xor('email', 'username')
-    .with('password', ['email', 'username']);
+// .xor('email', 'username')
+// .with('password', ['email', 'username']);

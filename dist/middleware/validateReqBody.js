@@ -12,18 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const user_model_1 = __importDefault(require("../Models/user.model"));
-const url = 'mongodb://127.0.0.1:27017/ecommerce';
-const dbName = 'your-database-name';
-mongoose_1.default.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Connected successfully to server');
-    // Update all users in the collection and add a new field `roleId`
-    const result = yield user_model_1.default.updateMany({}, { $set: { roleId: '6445179decb7694e160bd533' } });
-    console.log(`${result} users updated`);
-    mongoose_1.default.connection.close();
-}))
-    .catch((err) => {
-    console.error(err);
-});
+const appError_1 = __importDefault(require("../utils/appError"));
+const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
+const colors_1 = __importDefault(require("colors"));
+const validateRequestBody = (validationSchema) => (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { error } = validationSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+        console.log(colors_1.default.bgRed('Error:'), colors_1.default.strip(error.message));
+        const errorMessages = error.details.map((detail) => detail.message);
+        next(new appError_1.default(errorMessages.join(', '), 400));
+    }
+    next();
+}));
+exports.default = validateRequestBody;
