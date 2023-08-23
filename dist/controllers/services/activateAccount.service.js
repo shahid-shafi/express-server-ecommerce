@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveActivateAccountToken = exports.generateActivateAccountToken = void 0;
 const crypto_1 = __importDefault(require("crypto"));
-const activateAccountQuery_1 = require("../query/activateAccountQuery");
+const activateAccount_query_1 = require("../query/activateAccount.query");
 const generateActivateAccountToken = (length = 32) => {
     return crypto_1.default.randomBytes(length).toString('hex');
 };
@@ -22,6 +22,6 @@ exports.generateActivateAccountToken = generateActivateAccountToken;
 const saveActivateAccountToken = (id, token) => __awaiter(void 0, void 0, void 0, function* () {
     const expire = new Date();
     expire.setDate(expire.getDate() + 7);
-    return yield (0, activateAccountQuery_1.activateAccountQuery)({ id, token, expire });
+    return yield (0, activateAccount_query_1.activateAccountQuery)({ id, token, expire });
 });
 exports.saveActivateAccountToken = saveActivateAccountToken;

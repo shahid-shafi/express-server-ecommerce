@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const reviewControllers_1 = require("../controllers/reviewControllers");
-const reviewValidation_1 = require("../constants/validation/reviewValidation");
-const validateReqBody_1 = __importDefault(require("../middleware/validation/validateReqBody"));
+const validateReqBody_1 = __importDefault(require("../middleware/validateReqBody"));
+const reviewValidation_1 = require("../validation/reviewValidation");
 const router = express_1.default.Router({ mergeParams: true });
 router.route('/reviews')
     .post((0, validateReqBody_1.default)(reviewValidation_1.createReviewValidation), reviewControllers_1.createReview)

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const app_1 = __importDefault(require("./app"));
-const database_1 = __importDefault(require("./utils/connection/database"));
+const dbConnection_1 = __importDefault(require("./utils/dbConnection"));
 // mongoose.set('strictQuery', false);
 process.on('uncaughtException', (err) => {
     console.log('UNCAUGHT EXCEPTION 💥 Shutting Down Server 🌐...');
@@ -14,7 +14,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 });
 dotenv_1.default.config({ path: '.env' });
-(0, database_1.default)(); //:Connecting to mongodb database;
+(0, dbConnection_1.default)();
 const port = process.env.PORT || 5000;
 const server = app_1.default.listen(port, () => {
     console.log(`☑️  Server is running on port ${port}`);
